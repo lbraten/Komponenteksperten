@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    
+    
     // tema popup og knapper
     const themePopup = document.getElementById('themePopup');
     const themeLink = document.getElementById('themeLink');
@@ -28,30 +30,38 @@ document.addEventListener('DOMContentLoaded', function() {
     const highContrastThemeBtn = document.getElementById('highContrastThemeBtn');
 
     themeLink.addEventListener('click', () => {
-        themePopup.style.display = 'block';
+    themePopup.style.display = 'block';
     });
+
+    // mappe til våre data-theme verdier
+    const THEME_INT = 'int';       // mørkt
+    const THEME_LIGHT = 'light';   // lyst
+    const THEME_HC = 'hc';         // høykontrast
 
     darkThemeBtn.addEventListener('click', () => {
-        setTheme('dark-mode');
+    setTheme(THEME_INT);
     });
-
     lightThemeBtn.addEventListener('click', () => {
-        setTheme('');
+    setTheme(THEME_LIGHT);
     });
-
     highContrastThemeBtn.addEventListener('click', () => {
-        setTheme('high-contrast');
+    setTheme(THEME_HC);
     });
 
-    function setTheme(theme) {
-        document.body.className = theme;
-        localStorage.setItem('theme', theme);
-        themePopup.style.display = 'none';
+    function setTheme(themeKey) {
+    // sett tema på <html> (documentElement)
+    document.documentElement.setAttribute('data-theme', themeKey);
+    // lagre
+    localStorage.setItem('theme', themeKey);
+    // lukk popup
+    themePopup.style.display = 'none';
     }
 
-    // laster inn tema med localstorageeee
-    const savedTheme = localStorage.getItem('theme') || '';
-    document.body.className = savedTheme;
+    // ved last: bruk lagret tema hvis finnes, ellers behold det som står i HTML
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    }
 
     // quiz kode
     const quizSection = document.getElementById('quiz');

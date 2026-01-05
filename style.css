@@ -1,591 +1,565 @@
-*, *::before, *::after{
-    box-sizing: border-box; 
-    margin: 0; 
-    padding: 0; 
-    font: inherit; 
+
+/* ==========================================================================
+   Base tokens og tema-scope (kun CSS)
+   ========================================================================== */
+
+/* Default – hvis ingen data-theme er satt (kan være lik mørkt hvis ønskelig) */
+:root {
+  --color-text-base: 243, 243, 246;
+  --color-text-muted: 170, 170, 185;
+  --color-text-inverted: 7, 22, 39;
+
+  --color-fill: 7, 22, 39;
+  --muted: 40, 56, 72;
+
+  --color: 13, 242, 215;
+  --color-button-accent: 13, 242, 215;
+  --color-button-accent-hover: 255, 0, 0;
+  --color-button-muted: 15, 33, 51;
+
+  --accent: var(--color);
+  --accent-contrast: var(--color-text-inverted);
+  --surface: var(--color-button-muted);
+  --border: var(--muted);
+  --shadow: 0, 0, 0;
+
+  --accent-hover: color-mix(in srgb, rgb(var(--accent)) 80%, white 20%);
+  --accent-2: 161, 85, 185;
 }
-body{
-    background-color: #F0F0F0;
-    font-family: 'Poppins', sans-serif;
+
+/* ===== Mørkt tema (INT) – som du har fra før ===== */
+:root[data-theme="int"],
+html[data-theme="int"] {
+  --color-text-base: 243, 243, 246;
+  --color-text-muted: 170, 170, 185;
+  --color-text-inverted: 7, 22, 39;
+
+  --color-fill: 7, 22, 39;
+  --muted: 40, 56, 72;
+
+  --color: 13, 242, 215;
+  --color-button-accent: 13, 242, 215;
+  --color-button-accent-hover: 11, 220, 195;
+  --color-button-muted: 15, 33, 51;
+
+  --accent: var(--color);
+  --accent-contrast: var(--color-text-inverted);
+  --surface: var(--color-button-muted);
+  --border: var(--muted);
+  --shadow: 0, 0, 0;
+
+  --accent-hover: color-mix(in srgb, rgb(var(--accent)) 80%, white 20%);
+  --accent-2: 161, 85, 185;
 }
-.dark-mode body{
-    background-color: #121212;
-    color: #fff;
+
+/* ===== Lyst tema – MATCHER ditt andre prosjekt ===== */
+:root[data-theme="light"],
+html[data-theme="light"] {
+  --color-text-base: 7, 22, 39;            /* overskrift tekstfarge int */
+  --color-text-muted: 110, 110, 130;
+  --color-text-inverted: 255, 255, 255;    /* hover-tekst på knapper */
+
+  --color-fill: 243, 243, 246;             /* lys bakgrunn */
+  --muted: 192, 196, 200;                  /* progresslinja / subtile borders */
+
+  --color: 0, 115, 117;                    /* accentfarge */
+  --color-button-accent: 0, 115, 117;      /* knappefyll / underbar */
+  --color-button-accent-hover: 255, 0, 0;  /* (placeholder, overstyres ev.) */
+  --color-button-muted: 255, 255, 255;     /* paneler/kort */
+
+  /* Avledede tokens basert på dine verdier */
+  --accent: var(--color);
+  --accent-contrast: var(--color-text-inverted);
+  --surface: var(--color-button-muted);
+  --border: var(--muted);
+  --shadow: 0, 0, 0;
+
+  /* Lyst tema: litt mørkere hover enn accent for klar feedback */
+  --accent-hover: color-mix(in srgb, rgb(var(--accent)) 70%, black 30%);
+
+  --accent-2: 161, 85, 185; /* hvis du vil beholde lilla dekorlinje */
 }
-.high-contrast body{
-    background-color: #000000;
-    color: #f0f004;
+
+/* ===== Høykontrast (valgfritt, beholdt) ===== */
+:root[data-theme="hc"],
+html[data-theme="hc"] {
+  --color-text-base: 0, 0, 0;
+  --color-text-muted: 0, 0, 0;
+  --color-text-inverted: 255, 255, 255;
+
+  --color-fill: 255, 255, 255;
+  --muted: 0, 0, 0;
+
+  --color: 255, 255, 0;
+  --color-button-accent: 0, 0, 0;
+  --color-button-accent-hover: 255, 255, 0;
+  --color-button-muted: 255, 255, 255;
+
+  --accent: var(--color);
+  --accent-contrast: 0, 0, 0;
+  --surface: var(--color-button-muted);
+  --border: var(--muted);
+  --shadow: 0, 0, 0;
+
+  --accent-hover: rgb(var(--color));
+  --accent-2: 0, 0, 0;
 }
-h1{
-    font-size: 4rem;
+
+/* Fallback hvis browser ikke støtter color-mix() */
+@supports not (color: color-mix(in srgb, white, black)) {
+  /* Mørkt */
+  :root[data-theme="int"],
+  html[data-theme="int"] {
+    --accent-hover: 11, 220, 195;
+  }
+  /* Lyst – velg en nær mørkere variant av accent */
+  :root[data-theme="light"],
+  html[data-theme="light"] {
+    --accent-hover: 0, 95, 100; /* mørkere enn 0,115,117 */
+  }
+  /* Høykontrast */
+  :root[data-theme="hc"],
+  html[data-theme="hc"] {
+    --accent-hover: 255, 255, 0;
+  }
 }
-h2{
-    font-size: 3rem;
-    line-height: 200%;
-    position: relative;
-    margin-bottom: 50px;
+
+
+/* ==========================================================================
+   Reset / Basis
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font: inherit;
 }
-h2::after{
-    content: '';
-    display: block;
-    width: 40%;
-    height: 7px;
-    background-color: #A155B9;
-    margin: 1 auto;
+
+html, body {
+  height: 100%;
 }
-.high-contrast p{
-    color:#ffffff;
+
+body {
+  background-color: rgb(var(--color-fill));
+  color: rgb(var(--color-text-base));
+  font-family: 'Poppins', sans-serif;
 }
-#quiz h2::after{
-    content: '';
-    display: block;
-    width: 40%;
-    height: 7px;
-    background-color: #A155B9;
-    margin: 0 auto;
+
+/* ==========================================================================
+   Typografi
+   ========================================================================== */
+
+h1 { font-size: 4rem; }
+
+h2 {
+  font-size: 3rem;
+  line-height: 200%;
+  position: relative;
+  margin-bottom: 50px;
 }
-.high-contrast h2::after{
-    background-color: #20ecfc;
+
+h2::after {
+  content: '';
+  display: block;
+  width: 40%;
+  height: 7px;
+  background-color: rgb(var(--accent));
+  margin: 0 auto;
 }
-h3{
-    font-size: 1.5rem;
-    line-height: 200%;
+
+#quiz h2::after {
+  content: '';
+  display: block;
+  width: 40%;
+  height: 7px;
+  background-color: rgb(var(--accent));
+  margin: 0 auto;
 }
-p{
-    line-height: 150%;
-    font-size: 1rem;
-}
-section #components, 
+
+h3 { font-size: 1.5rem; line-height: 200%; }
+
+p { line-height: 150%; font-size: 1rem; color: rgb(var(--color-text-muted)); }
+
+/* ==========================================================================
+   Seksjoner / visningslogikk
+   ========================================================================== */
+
+section #components,
 section #connection,
-section #quiz{
-    display: none;
+section #quiz {
+  display: none;
 }
-section{
-    padding: 80px;
-    background-color: #ffffff;
-    padding-block-start: 40px;
-    display: none;
-    border: 3px solid #165BAA;
-    margin-top: 50px;
-    max-width: 900px;
-    margin-inline: auto;
-    box-shadow: 0 0 0px 0px #552c61;
-    border-radius: 15px;
+
+section {
+  padding: 80px;
+  padding-block-start: 40px;
+  display: none;
+  margin-top: 50px;
+  max-width: 900px;
+  margin-inline: auto;
+
+  background-color: rgb(var(--surface));
+  border: 3px solid rgb(var(--border));
+  border-radius: 15px;
+  box-shadow: 0 0 0px 0px rgba(var(--shadow), 0.25);
 }
-section:target{
-    display: block;
+
+section:target {
+  display: block;
 }
-nav{
-    background-color: #0b1354;
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #ffffff;
-    padding-top: 10px;
-    text-align: center;
-    z-index: 1; 
-    width: 100%;
-    margin-bottom: 10px;
+
+/* ==========================================================================
+   Navigasjon
+   ========================================================================== */
+
+nav {
+  background-color: rgb(var(--surface));
+  color: rgb(var(--color-text-base));
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding-top: 10px;
+  text-align: center;
+  z-index: 1;
+  width: 100%;
+  margin-bottom: 10px;
+  border-bottom: 2px solid rgb(var(--border));
 }
-nav a{
-    max-height: max-content;
-    color: #ffffff;
-    text-decoration: none;
-    margin: 0 5px;
-    padding: 6px 15px;
-    border-radius: 7px;
-    transition: background-color 0.4s ease-in-out, transform 0.2s ease-in-out;
+
+nav a {
+  max-height: max-content;
+  color: rgb(var(--color-text-base));
+  text-decoration: none;
+  margin: 0 5px;
+  padding: 6px 15px;
+  border-radius: 7px;
+  transition: background-color 0.4s ease-in-out, transform 0.2s ease-in-out, border-color 0.2s;
 }
-nav a:hover{
-    border-bottom: 2px solid #A155B9;
-    background-color: rgba(255, 255, 255, 0.1);
+
+nav a:hover {
+  border-bottom: 2px solid rgb(var(--accent));
+  background-color: rgba(var(--color-text-base), 0.08);
 }
-#themeLink{
-    height: 37px;
-    color: #ffffff;
-    background-color: transparent;
-    text-decoration: none;
-    margin: 0 5px;
-    padding: 1px 15px;
-    border: 0px solid transparent;
-    border-radius: 7px;
-    cursor: pointer;
+
+#themeLink {
+  height: 37px;
+  color: rgb(var(--color-text-base));
+  background-color: transparent;
+  text-decoration: none;
+  margin: 0 5px;
+  padding: 1px 15px;
+  border: 0 solid transparent;
+  border-radius: 7px;
+  cursor: pointer;
 }
-#themeLink:hover{
-    border-bottom: 2px solid #A155B9;
-    background-color: rgba(255, 255, 255, 0.1);
+
+#themeLink:hover {
+  border-bottom: 2px solid rgb(var(--accent));
+  background-color: rgba(var(--color-text-base), 0.08);
 }
-.high-contrast #themeLink{
-    color: #000000;
-    border: 4px solid #000000;
-    border-radius: 0px;
-    background-color: transparent;
-    max-height: 43px;
-    padding-bottom: 34px;
+
+/* ==========================================================================
+   Main / Quiz
+   ========================================================================== */
+
+main { padding: 20px; }
+
+#quiz {
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 50px;
 }
-.high-contrast #themeLink:hover{
-    background-color: #20ecfc;
+
+#question {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  color: rgb(var(--color-text-base));
 }
-main{
-    padding: 20px;
-}
-#quiz{
-    text-align: center;
-    margin: 0 auto;
-    margin-top: 50px;
-}
-#question{
-    font-size: 1.2em;
-    margin-bottom: 20px;
-}
+
 #options {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-#options .quiz-option {
-    width: 100%;
-    height: auto;
-    padding: 20px;
-    font-size: 1em;
-    border: 3px solid #165BAA;
-    border-radius: 7px;
-    cursor: pointer;
-    background-color: #ffffff;
-    color: #000000;
-    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-    white-space: normal;
-    text-overflow: clip;
-    overflow: visible;
+
+#options .quiz-option,
+#retryBtn {
+  width: 100%;
+  height: auto;
+  padding: 20px;
+  font-size: 1em;
+  border: 3px solid rgb(var(--border));
+  border-radius: 7px;
+  cursor: pointer;
+  background-color: rgb(var(--color-button-muted));
+  color: rgb(var(--color-text-base));
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out, color 0.2s, border-color 0.2s;
+  white-space: normal;
+  text-overflow: clip;
+  overflow: visible;
 }
-#nextBtn{
-    width: 300px;
-    height: 60px;
-    margin: 20px auto;
-    padding: 12px 20px;
-    border: 3px solid #165BAA;
-    font-size: 1.4rem;
-    border-radius: 12px;
-    cursor: pointer;
-    background-color: #fefefe;
-    color: #666666;
-    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-}
-#nextBtn.clickable{
-    background-color: #165BAA;
-    color: #ffffff;
-    pointer-events: auto;
-}
-.high-contrast #options .quiz-option,
-.high-contrast #nextBtn{
-    border-radius: 0px;
-}
+
 #options .quiz-option:hover,
-#nextBtn:hover{
-    color: #ffffff;
-    background-color: #165BAA;
-    transform: translateY(-2px);
+#retryBtn:hover,
+#nextBtn:hover {
+  color: rgb(var(--accent-contrast));
+  background-color: rgb(var(--accent));
+  transform: translateY(-2px);
+  border-color: rgb(var(--accent));
 }
-#score{
-    font-size: 1.2em;
-    margin-top: 20px;
+
+#nextBtn {
+  width: 300px;
+  height: 60px;
+  margin: 20px auto;
+  padding: 12px 20px;
+  border: 3px solid rgb(var(--border));
+  font-size: 1.4rem;
+  border-radius: 12px;
+  cursor: pointer;
+  background-color: rgb(var(--surface));
+  color: rgb(var(--color-text-muted));
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out, color 0.2s, border-color 0.2s;
 }
-#score{
-    position: fixed;
-    top: 10vh;
-    right: 25vw;
-    background-color: #ffffff;
-    padding: 5px 10px;
-    border-radius: 7px;
-    z-index: 999; 
-    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.3);
-    color: #000000;
+
+#nextBtn.clickable {
+  background-color: rgb(var(--accent));
+  color: rgb(var(--accent-contrast));
+  pointer-events: auto;
+  border-color: rgb(var(--accent));
 }
-.dark-mode #score {
-    background-color: #252525;
-    color: #ffffff;
-    border: #f0f004;
-}   
-.high-contrast #score {
-    color: #f0f004;
-    border: #f0f004;
+
+/* ==========================================================================
+   Score / Streak
+   ========================================================================== */
+
+#score {
+  font-size: 1.2em;
+  position: fixed;
+  top: 10vh;
+  right: 25vw;
+  background-color: rgb(var(--surface));
+  padding: 5px 10px;
+  border-radius: 7px;
+  z-index: 999;
+  box-shadow: 0px 0px 0px rgba(var(--shadow), 0.3);
+  color: rgb(var(--color-text-base));
+  border: 2px solid rgba(var(--border), 0.4);
 }
+
 #streak {
-    position: fixed;
-    top: 13vh;
-    left: 25vw;
-    border-radius: 7px;
-    z-index: 999; 
-    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.3);
-    display: none;
+  position: fixed;
+  top: 13vh;
+  left: 25vw;
+  border-radius: 7px;
+  z-index: 999;
+  box-shadow: 0px 0px 0px rgba(var(--shadow), 0.3);
+  display: none;
 }
 
-.correct{
-    background-color: green !important;
-    color: white !important;
+/* Riktig/feil (behold tydelige farger) */
+.correct {
+  background-color: #00853a !important;
+  color: #ffffff !important;
 }
-.incorrect{
-    background-color: red !important;
-    color: white !important;
-}
-.theme-button{
-    color: #ffffff;
-    background-color: #165BAA;
-    border-radius: 7px;
-    padding: 6px 10px;
-    margin: 0 10px;
-    cursor: pointer;
-}
-.theme-button:hover{
-    background-color: #ffffff;
-    color: #000000;
-    transition: background-color 0.4s ease-in-out, transform 0.2s ease-in-out;
-}
-.theme-popup{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    color: #0b1354;
-    border: 1px solid #165BAA;
-    display: none;
-    z-index: 1000;
-    border-radius: 7px;
-    box-shadow: 0 0 0px 0px #0b1354;
-    padding: 40px;
-}
-.show-theme-dialog .theme-popup{
-    display: block;
-}
-.hidden {
-    display: none;
-}
-.quiz-container{
-    margin: 20px; 
-    margin-top: 20px;
-}
-.quiz-options .quiz-option{
-    display: block;
-    margin: 5px 0;
-    padding: 10px;
-}
-.dark-mode{
-    background-color: #121212;
-    color: #fff;
-}
-.dark-mode .theme-popup{
-    background-color: #252525;
-    color: #ffffff;
-    box-shadow: 0 0 0px 0px #0a294e;
-    text-align: center;
-}
-.high-contrast .theme-popup{
-    background-color: #000000;
-    color: #f0f004;
-    border-color:#20ecfc; 
-    border-width: 5px;
-    box-shadow: 0 0 0px 0px #20ecfc;
-    text-align: center;
-    border-radius: 0px;
-}
-.high-contrast .theme-popup .theme-button{
-    color: #f0f004;
-    border: 4px solid #f0f004;
-    border-radius: 0px;
-    padding: 6px 10px;
-    margin: 0 10px;
-    background-color: transparent;
-}
-.high-contrast .theme-popup .theme-button:hover{
-    background-color: #20ecfc;
-    color: #000000;
-}
-.dark-mode .theme-button{
-    background-color: #165BAA;
-    color: #ffffff;
-}
-.dark-mode .theme-button:hover{
-    background-color: #ffffff;
-    color: #000000;
-    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-}
-.high-contrast .theme-button{
-    background-color: #ffffff;
-    color: #000000;
-    border-color: #20ecfc;
-    border-width: 5px;
-}
-.high-contrast .theme-button:hover{
-    background-color: #20ecfc;
-    color: #000000;
-}
-.dark-mode section,
-.dark-mode #score{
-    background-color: #252525;
-}
-.high-contrast{
-    background-color: #000000;
-    color: #f0f004;
-}
-.high-contrast nav{
-    background-color: #f0f004;
-    color: #000000;
-}
-.high-contrast nav a{
-    color: #000000;
-    border: 4px solid #000000;
-    border-radius: 0px;
-}
-.high-contrast nav a:hover{
-    background-color: #20ecfc;
-}
-.high-contrast #quiz{
-    background-color: #000000;
-}
-.high-contrast
-#question{
-    color: #20ecfc;
-}
-.high-contrast #options button,
-.high-contrast #nextBtn{
-    background-color: #ffffff;
-    color: #000000;
-    border-color: #20ecfc;
-}
-.high-contrast #options button:hover,
-.high-contrast #nextBtn:hover{
-    background-color: #20ecfc;
-    border-color: #f0f004;
-}
-.high-contrast #score{
-    color: #000000;
-}
-.high-contrast section{
-    border-radius: 0px;
-    border-color: #f0f004;
-    background-color:#050505;
-    border-width: 5px;
-    box-shadow: 0 0 0px 0px #0b1354;
-}
-#ram-image{
-    margin-top: 30px;
-    margin-bottom: 10px;
-    max-width: 100%;
-    height: auto;
-    border-radius: 30px;
-    box-shadow: 0 0 0px 0px #0b1354;
-    border: 2px solid #165BAA;
-}
-.fullscreen-image img{
-    transition: transform 0.5s ease-in-out;
-    max-width: 50%;
-    max-height: auto;
-    margin-top: 30px;
-    margin-bottom: 40px;
-    max-width: 100%;
-    height: auto;
-    border-radius: 30px;
-    box-shadow: 0 0 0px 0px #0a294e;
-    border: 3px solid #A155B9;
-}
-.fullscreen-image.show img{
-    transform: scale(2);
-}
-.high-contrast .fullscreen-image img{
-    transition: transform 0.5s ease-in-out;
-    max-width: 50%;
-    max-height: auto;
-    margin-top: 30px;
-    margin-bottom: 10px;
-    max-width: 100%;
-    height: auto;
-    border-radius: 0px;
-    box-shadow: 0 0 0px 0px #f3f3f3;
-    border: 2.5px solid #20ecfc;
-}
-.minNav{
-    position: fixed;
-    top: 0;
-    z-index: 1;
-    width: 100%;
-    background-color: #165BAA;
-}
-.progressjons-container{
-    width: 100%;
-    height: 4px;
-    background: #165BAA;
-}
-.progressjons-bar{
-    height: 4px;
-    background: #de73ff;
-    width: 0%;
+.incorrect {
+  background-color: #c62828 !important;
+  color: #ffffff !important;
 }
 
-.high-contrast .progressjons-container{
-    width: 100%;
-    height: 4px;
-    background: #f0f004;
+/* ==========================================================================
+   Tema-knapper / popup
+   ========================================================================== */
+
+.theme-button {
+  color: rgb(var(--accent-contrast));
+  background-color: rgb(var(--accent));
+  border-radius: 7px;
+  padding: 6px 10px;
+  margin: 0 10px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.high-contrast .progressjons-bar{
-    height: 4px;
-    background: #20ecfc;
-    width: 0%;
+.theme-button:hover {
+  background-color: rgb(var(--accent-hover));
+  color: rgb(var(--accent-contrast));
 }
+
+.theme-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(var(--surface));
+  color: rgb(var(--color-text-base));
+  border: 1px solid rgb(var(--border));
+  display: none;
+  z-index: 1000;
+  border-radius: 7px;
+  box-shadow: 0 0 0px 0px rgba(var(--shadow), 0.25);
+  padding: 40px;
+  text-align: center;
+}
+
+.show-theme-dialog .theme-popup { display: block; }
+.hidden { display: none; }
+
+.quiz-container {
+  margin: 20px;
+  margin-top: 20px;
+}
+
+.quiz-options .quiz-option {
+  display: block;
+  margin: 5px 0;
+  padding: 10px;
+}
+
+/* ==========================================================================
+   Bilder / rammer
+   ========================================================================== */
+
+#ram-image {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 0 0px 0px rgba(var(--shadow), 0.2);
+  border: 2px solid rgb(var(--border));
+}
+
+.fullscreen-image img {
+  transition: transform 0.5s ease-in-out;
+  max-width: 100%;
+  height: auto;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 0px 0px rgba(var(--shadow), 0.2);
+  border: 3px solid rgb(var(--accent));
+}
+
+.fullscreen-image.show img {
+  transform: scale(2);
+}
+
+/* ==========================================================================
+   Minimal nav / progresjon
+   ========================================================================== */
+
+.minNav {
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  background-color: rgb(var(--accent));
+  color: rgb(var(--accent-contrast));
+}
+
+.progressjons-container {
+  width: 100%;
+  height: 4px;
+  background: rgb(var(--muted));
+}
+
+.progressjons-bar {
+  height: 4px;
+  background: rgb(var(--accent));
+  width: 0%;
+}
+
+/* ==========================================================================
+   Ikoner
+   ========================================================================== */
+
 .icon-home::before,
 .icon-components::before,
 .icon-connection::before,
 .icon-quiz::before,
-.icon-theme::before{
-    font-weight: 900;
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 8px;
+.icon-theme::before {
+  font-weight: 900;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
 }
-nav#minNav img{
-    width: 35px;
-    height: 35px;
-    padding-right: 10px;
 
+nav#minNav img {
+  width: 35px;
+  height: 35px;
+  padding-right: 10px;
 }
-nav#minNav img #ThemeLink{
-    width: 35px;
-    height: 35px;
 
+nav#minNav .icon img {
+  vertical-align: middle;
 }
-nav#minNav .icon img{
-    vertical-align: middle;
 
+span.iconCPU,
+span.iconRAM,
+span.iconMOBO,
+span.iconGPU,
+span.iconHDD,
+span.iconSSD {
+  padding-right: 8px;
 }
-span.iconCPU{
-    padding-right: 8px;
+
+span.iconCPU img,
+span.iconRAM img,
+span.iconMOBO img,
+span.iconGPU img,
+span.iconHDD img,
+span.iconSSD img {
+  width: 25px;
+  height: 25px;
+  margin-top: 10px;
 }
-span.iconCPU img{
-    width: 25px;
-    height: 25px;
-    margin-top: 10px;
-}
-span.iconRAM{
-    padding-right: 8px;
-}
-span.iconRAM img{
-    width: 25px;
-    height: 25px;
-    margin-top: 10px;
-}
-span.iconMOBO{
-    padding-right: 8px;
-}
-span.iconMOBO img{
-    width: 25px;
-    height: 25px;
-    margin-top: 10px;
-}
-span.iconGPU{
-    padding-right: 8px;
-}
-span.iconGPU img{
-    width: 25px;
-    height: 25px;
-    margin-top: 10px;
-}
-span.iconHDD{
-    padding-right: 8px;
-}
-span.iconHDD img{
-    width: 25px;
-    height: 25px;
-    margin-top: 10px;
-}
-span.iconSSD{
-    padding-right: 8px;
-}
-span.iconSSD img{
-        width: 25px;
-        height: 25px;
-        margin-top: 10px;
-        padding-bottom: 5px;
-}
-/*lys */
-body:not(.dark-mode) .iconCPU img,
-body:not(.dark-mode) .iconRAM img,
-body:not(.dark-mode) .iconMOBO img,
-body:not(.dark-mode) .iconGPU img,
-body:not(.dark-mode) .iconHDD img,
-body:not(.dark-mode) .iconSSD img{
-    filter: invert(100%);
-}
-/*mørk */
-.dark-mode .iconCPU img,
-.dark-mode .iconRAM img,
-.dark-mode .iconMOBO img,
-.dark-mode .iconGPU img,
-.dark-mode .iconHDD img,
-.dark-mode .iconSSD img{
-    filter: invert(0%);
-}
-/*høykontrast*/
-.high-contrast .icon img,
-.high-contrast .iconCPU img,
-.high-contrast .iconRAM img,
-.high-contrast .iconMOBO img,
-.high-contrast .iconGPU img,
-.high-contrast .iconHDD img,
-.high-contrast .iconSSD img{
-    filter: invert(100%);
-}
-/* slideshow greia */
-* {
-    box-sizing: border-box;
-}
+
+/* Hvis ikonene dine er mørke SVG-er og trenger invert mot mørk bakgrunn,
+   kan du slå på denne:
+html[data-theme="int"] .icon img { filter: invert(100%); }
+*/
+
+/* ==========================================================================
+   Slideshow
+   ========================================================================== */
+
 .lysbildefremvisning-container {
-    position: relative;
-    max-width: 1000px;
-    margin: auto;
-    padding-top: 50px;
-    padding-bottom: 0px;
+  position: relative;
+  max-width: 1000px;
+  margin: auto;
+  padding-top: 50px;
+  padding-bottom: 0;
 }
-.mineBilder img{
-    width: 100%;
-    border-radius: 5px;
+
+.mineBilder img {
+  width: 100%;
+  border-radius: 5px;
 }
+
+/* ==========================================================================
+   Animasjoner / småfiks
+   ========================================================================== */
 
 #score.streak {
-    animation: shake 0.5s infinite alternate;
+  animation: shake 0.5s infinite alternate;
 }
 
 @keyframes shake {
-    0% { transform: translateX(5); }
-    100% { transform: translateX(5px); }
-}
-#options .quiz-option,
-#retryBtn {
-    width: 100%;
-    height: auto;
-    padding: 20px;
-    font-size: 1em;
-    border: 3px solid #165BAA;
-    border-radius: 7px;
-    cursor: pointer;
-    background-color: #ffffff;
-    color: #000000;
-    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-    white-space: normal;
-    text-overflow: clip;
-    overflow: visible;
+  0%   { transform: translateX(5px); }
+  100% { transform: translateX(5px); }
 }
 
-gif {
-    padding: 20px;
+gif { padding: 20px; }
+
+/* ==========================================================================
+   Tilgjengelighet – tydelig fokusring
+   ========================================================================== */
+
+:where(a, button, [role="button"], .quiz-option):focus-visible {
+  outline: 3px solid rgb(var(--accent));
+  outline-offset: 2px;
 }
-
-
-/* lydeffekter til quizen 
-effekt på poenboksen ved streaks
-rett styling av poengboks
-fjern progresjonsbar til hjemskjerm
-logo? 
-spill på nytt knapp
-melding bassert på hvor bra man gjorde quizen*/
