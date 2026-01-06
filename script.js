@@ -13,13 +13,26 @@ document.addEventListener('DOMContentLoaded', function() {
         link.addEventListener('click', function(event) {
             event.preventDefault();
             const targetSection = document.querySelector(link.getAttribute('href'));
+            currentSectionId = link.getAttribute('href').replace('#', '');
             sections.forEach(section => section.style.display = 'none');
             if (targetSection) {
                 targetSection.style.display = 'block';
             }
+
+            // Nullstill progressbar på seksjoner som ikke skal ha den
+            const minBar = document.getElementById('minBar');
+            if (minBar) {
+                if (currentSectionId === 'home' || currentSectionId === 'quiz') {
+                    minBar.style.width = '0%';
+                } else {
+                    // valgfritt: oppdater umiddelbart når man navigerer
+                    myFunction();
+                }
+            }
         });
     });
 
+    let currentSectionId = 'home';
     
     
     // tema popup og knapper
@@ -292,6 +305,8 @@ streakElement.style.display = 'none';
     window.onscroll = function() { myFunction() };
 
     function myFunction() {
+        if (currentSectionId === 'home' || currentSectionId === 'quiz') return;
+
         const winScroll = window.scrollY || document.documentElement.scrollTop;
         const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
         const scrolled = (winScroll / height) * 100;
@@ -343,13 +358,13 @@ function startConfetti() {
 
     frame();
 }
-
-
-
-  document.addEventListener('DOMContentLoaded', () => {
+    // årstall i footer
     const yearEl = document.getElementById('year');
     if (yearEl) {
       yearEl.textContent = new Date().getFullYear();
     }
-  });
+
+
+
+  
 });
