@@ -352,6 +352,4 @@ function startConfetti() {
       yearEl.textContent = new Date().getFullYear();
     }
   });
-
-
 });
