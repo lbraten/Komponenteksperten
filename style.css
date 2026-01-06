@@ -49,7 +49,7 @@
   --space-sm: 10px;
   --space-m: 12px;
   --space-ml: 15px;
-  --space-l: 20px;
+  --space-l: 23px;
   --space-xl: 40px;
   --space-2xl: 50px;
   --space-3xl: 80px;
@@ -269,7 +269,7 @@ nav {
   background-color: rgb(var(--surface));
   color: rgb(var(--color-text-base));
   position: fixed;
-  top: var(--space-xl);
+  top: var(--space-l);
   left: 50%;
   transform: translate(-50%, -50%);
   padding-top: var(--nav-padding-top);
@@ -642,3 +642,125 @@ gif { padding: var(--space-l); }
   margin-bottom: var(--space-l);
 }
 
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.site-footer {
+  background-color: rgb(var(--surface));
+  color: rgb(var(--color-text-base));
+  border-top: var(--border-w) solid rgba(var(--border), 0.5);
+  box-shadow: var(--shadow-sm);
+  margin-top: var(--space-2xl);
+}
+
+.site-footer .footer-inner {
+  max-width: var(--width-content);
+  margin-inline: auto;
+  padding: var(--space-xl) var(--space-l);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-l);
+  align-items: center;
+}
+
+/* Venstreside: meta-tekst (år, navn etc.) */
+.site-footer .footer-meta {
+  font-size: 0.95rem;
+  color: rgb(var(--color-text-muted));
+}
+
+/* Lenkeside: små linker/ikoner */
+.site-footer .footer-links {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-m);
+}
+
+.site-footer .footer-links a {
+  color: rgb(var(--color-text-base));
+  text-decoration: none;
+  padding: var(--space-2xs) var(--space-xs);
+  border-radius: var(--radius-s);
+  transition: background-color var(--duration-base) var(--easing),
+              color var(--duration-fast) var(--easing),
+              transform var(--duration-fast) var(--easing),
+              border-color var(--duration-fast) var(--easing);
+  border: var(--border-w-thin) solid transparent;
+  display: inline-flex;
+  align-items: center;
+  line-height: var(--line-button);
+}
+
+.site-footer .footer-links a:hover {
+  background-color: rgba(var(--accent), 0.08);
+  color: rgb(var(--accent));
+  transform: translateY(-1px);
+}
+
+.site-footer .footer-links a:focus-visible {
+  outline: var(--border-w-bold) solid rgb(var(--accent));
+  outline-offset: var(--space-2xs);
+}
+
+/* Liten separatorlinje i footeren (om du vil dele innhold) */
+.site-footer .footer-sep {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(var(--border), 0.35);
+  margin: var(--space-m) 0;
+}
+
+/* Aksent-underline for en enkelt lenke (valgfritt) */
+.site-footer .accent-underline {
+  position: relative;
+}
+.site-footer .accent-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background-color: rgb(var(--accent));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-base) var(--easing);
+}
+.site-footer .accent-underline:hover::after {
+  transform: scaleX(1);
+}
+
+/* Ikonstørrelser matcher resten */
+.site-footer .footer-links .icon svg,
+.site-footer .footer-links img {
+  width: var(--icon-size-sm);
+  height: var(--icon-size-sm);
+  margin-right: var(--space-xs);
+}
+
+/* Responsiv tilpasning */
+@media (max-width: 700px) {
+  .site-footer .footer-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+    justify-items: center;
+  }
+  .site-footer .footer-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* Sticky footer-støtte
+   Krever at body er flex-col og main bruker flex: 1 0 auto;
+   Denne gjør bare at footer ikke krymper. */
+.site-footer { flex-shrink: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .site-footer .footer-links a,
+  .site-footer .accent-underline::after {
+    transition: none;
+  }
+}
