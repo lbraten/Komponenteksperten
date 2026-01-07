@@ -29,7 +29,8 @@
   --accent-2: 161, 85, 185;
 
   /* --- Typografi --- */
-  --font-family-base: 'Poppins', sans-serif;
+  --font-family-base: 'Open Sans', sans-serif;
+  --font-family-heading: 'Satoshi', sans-serif;
   --font-size-h1: 4rem;
   --font-size-h2: 3rem;
   --font-size-h3: 1.5rem;
@@ -104,7 +105,7 @@ html[data-theme="int"] {
   --color-fill: 7, 22, 39;
   --muted: 40, 56, 72;
 
-  --color: 13, 242, 215;
+  --color: 13, 242, 215; /* accentfarge */
   --color-button-accent: 13, 242, 215;
   --color-button-accent-hover: 11, 220, 195;
   --color-button-muted: 15, 33, 51;
@@ -129,7 +130,7 @@ html[data-theme="light"] {
   --color-fill: 243, 243, 246;
   --muted: 192, 196, 200;
 
-  --color: 0, 115, 117;
+  --color: 0, 115, 117; /* accentfarge */
   --color-button-accent: 0, 115, 117;
   --color-button-accent-hover: 255, 0, 0;
   --color-button-muted: 255, 255, 255;
@@ -139,9 +140,10 @@ html[data-theme="light"] {
   --surface: var(--color-button-muted);
   --border: var(--muted);
   --shadow: 0, 0, 0;
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.08);
 
   --accent-hover: color-mix(in srgb, rgb(var(--accent)) 70%, black 30%);
-  --accent-2: 161, 85, 185;
+  --accent-2: 0, 85, 87; /* farge til hover */
 }
 
 /* ===== Høykontrast ===== */
@@ -151,11 +153,11 @@ html[data-theme="hc"] {
   --color-text-muted: 0, 0, 0;
   --color-text-inverted: 255, 255, 255;
 
-  --color-fill: 255, 255, 255;
+  --color-fill: 0, 0, 255;
   --muted: 0, 0, 0;
 
-  --color: 255, 255, 0;
-  --color-button-accent: 0, 0, 0;
+  --color: 255, 0, 0; /* accentfarge */
+  --color-button-accent: 255, 0, 0;
   --color-button-accent-hover: 255, 255, 0;
   --color-button-muted: 255, 255, 255;
 
@@ -164,9 +166,10 @@ html[data-theme="hc"] {
   --surface: var(--color-button-muted);
   --border: var(--muted);
   --shadow: 0, 0, 0;
+  --shadow-lg: none;
+  --accent-hover: 13, 242, 215;
 
-  --accent-hover: rgb(var(--color));
-  --accent-2: 0, 0, 0;
+  --accent-2: 13, 242, 215;
 }
 
 /* Fallback hvis browser ikke støtter color-mix() */
@@ -205,6 +208,8 @@ body {
    Typografi
    ========================================================================== */
 
+h1, h2, h3, p { font-family: var(--font-family-heading); }
+   
 h1 { font-size: var(--font-size-h1); }
 
 h2 {
@@ -221,7 +226,7 @@ h2::after,
   width: var(--width-underline);
   height: var(--height-underline);
   background-color: rgb(var(--accent));
-  margin: 0 auto;
+
 }
 
 h3 {
@@ -421,7 +426,7 @@ main { padding: var(--space-m); }
   z-index: var(--z-score);
   box-shadow: var(--shadow-sm);
   color: rgb(var(--color-text-base));
-  border: var(--border-w) solid rgba(var(--border), 0.4);
+  border: var(--border-w-thin) solid rgba(var(--border), 0.4);
 }
 
 #streak {
@@ -437,10 +442,12 @@ main { padding: var(--space-m); }
 /* Riktig/feil (beholder tydelige farger) */
 .correct {
   background-color: #00853a !important;
+  border:#00853a !important;
   color: #ffffff !important;
 }
 .incorrect {
   background-color: #c62828 !important;
+  border:#c62828 !important;
   color: #ffffff !important;
 }
 
@@ -456,12 +463,10 @@ main { padding: var(--space-m); }
   margin: 0 var(--space-sm);
   cursor: pointer;
   border: var(--border-w) solid transparent;
-  transition: background-color var(--duration-base) var(--easing),
-              transform var(--duration-fast) var(--easing);
 }
 
 .theme-button:hover {
-  background-color: rgb(var(--accent-hover));
+  background-color: rgb(var(--accent-2));
   color: rgb(var(--accent-contrast));
 }
 
@@ -544,7 +549,7 @@ main { padding: var(--space-m); }
 .progressjons-bar {
   height: var(--height-progress);
   background: rgb(var(--accent));
-  width: 10%;
+  width: 0;
 }
 
 /* ==========================================================================
@@ -650,7 +655,7 @@ gif { padding: var(--space-l); }
 .site-footer {
   background-color: rgb(var(--surface));
   color: rgb(var(--color-text-base));
-  border-top: var(--border-w) solid rgba(var(--border), 0.5);
+  border-top: var(--border-w-thin) solid rgba(var(--border), 0.5);
   box-shadow: var(--shadow-sm);
   margin-top: var(--space-2xl);
 }

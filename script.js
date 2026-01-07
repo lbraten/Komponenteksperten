@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (currentSectionId === 'home' || currentSectionId === 'quiz') {
                     minBar.style.width = '0%';
                 } else {
-                    // valgfritt: oppdater umiddelbart når man navigerer
+                    // oppdater med en gang når man navigerer
                     myFunction();
                 }
             }
@@ -124,7 +124,7 @@ streakElement.style.display = 'none';
     
                 scoreElement.style.transform = `translateX(${shakeIntensity}px)`;
     
-                scoreElement.style.boxShadow = `0 0 10px rgba(255, 0, 0, ${flameIntensity}), 0 0 20px rgba(255, 0, 0, ${flameIntensity})`;
+                scoreElement.style.boxShadow = `0 0 10px rgba(201, 52, 29, ${flameIntensity}), 0 0 20px rgba(201, 52, 29, ${flameIntensity})`;
     
                 let redValue = Math.min(255, score * colorIntensity);
                 scoreElement.style.color = `rgb(${redValue}, 0, 0)`;
@@ -182,16 +182,13 @@ streakElement.style.display = 'none';
     
                 scoreElement.style.transform = `translateX(${shakeIntensity}px)`;
     
-                scoreElement.style.boxShadow = `0 0 10px rgba(255, 0, 0, ${flameIntensity}), 0 0 20px rgba(255, 0, 0, ${flameIntensity})`;
+                scoreElement.style.boxShadow = `0 0 10px rgba(201, 52, 29, ${flameIntensity}), 0 0 20px rgba(201, 52, 29, ${flameIntensity})`;
     
                 let redValue = Math.min(255, score * colorIntensity);
     
                 if (document.body.classList.contains('dark-mode')) {
                     scoreElement.style.color = `rgb(255, ${255 - redValue}, ${255 - redValue})`;
                     scoreElement.style.backgroundColor = 'transparent';
-                } else {
-                    scoreElement.style.color = `rgb(${redValue}, 0, 0)`;
-                    scoreElement.style.backgroundColor = '#ffffff';
                 }
             }
     
@@ -209,8 +206,6 @@ streakElement.style.display = 'none';
     
             if (document.body.classList.contains('dark-mode')) {
                 scoreElement.style.color = '#fff';
-            } else {
-                scoreElement.style.color = '#000';
             }
         }
     
