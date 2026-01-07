@@ -607,9 +607,25 @@ span.iconSSD img {
   padding-bottom: 0;
 }
 
+
+/* format på bildeframe */
+.mineBilder {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  border: 0px solid transparent;
+}
+
 .mineBilder img {
   width: 100%;
-  border-radius: 5px; /* beholdt som er */
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 0;
 }
 
 /* ==========================================================================
