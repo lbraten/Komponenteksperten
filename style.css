@@ -324,6 +324,19 @@ nav button#themeLink .icon svg {
   vertical-align: middle;
 }
 
+nav a .icon,
+nav a .icon svg,
+nav a .icon path,
+nav a .icon text {
+  pointer-events: none;
+}
+
+.site-footer .footer-links .icon svg,
+.site-footer .footer-links .icon path,
+.site-footer .footer-links .icon text {
+  pointer-events: none;
+}
+
 /* ==========================================================================
    Main / Quiz
    ========================================================================== */

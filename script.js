@@ -8,29 +8,39 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // bytte seksjon ved klikk i menyen
-    const menuLinks = document.querySelectorAll('nav a');
-    menuLinks.forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            const targetSection = document.querySelector(link.getAttribute('href'));
-            currentSectionId = link.getAttribute('href').replace('#', '');
-            sections.forEach(section => section.style.display = 'none');
-            if (targetSection) {
-                targetSection.style.display = 'block';
-            }
 
-            // Nullstill progressbar på seksjoner som ikke skal ha den
-            const minBar = document.getElementById('minBar');
-            if (minBar) {
-                if (currentSectionId === 'home' || currentSectionId === 'quiz') {
-                    minBar.style.width = '0%';
-                } else {
-                    // oppdater med en gang når man navigerer
-                    myFunction();
-                }
-            }
-        });
-    });
+const menuLinks = document.querySelectorAll('nav a');
+menuLinks.forEach(link => {
+  link.addEventListener('click', function (event) {
+    const href = link.getAttribute('href') || '';
+
+    // 1) Interne seksjoner: href starter med '#'
+    if (href.startsWith('#')) {
+      event.preventDefault();
+
+      // Oppdater visningslogikk
+      const targetSection = document.querySelector(href);
+      currentSectionId = href.slice(1);
+
+      sections.forEach(section => section.style.display = 'none');
+      if (targetSection) {
+        targetSection.style.display = 'block';
+      }
+
+      // Progressbar
+      const minBar = document.getElementById('minBar');
+      if (minBar) {
+        if (currentSectionId === 'home' || currentSectionId === 'quiz') {
+          minBar.style.width = '0%';
+        } else {
+          myFunction();
+        }
+      }
+      return;
+    }
+  });
+});
+
 
     let currentSectionId = 'home';
     
