@@ -11,34 +11,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
 const menuLinks = document.querySelectorAll('nav a');
 menuLinks.forEach(link => {
-  link.addEventListener('click', function (event) {
+    link.addEventListener('click', function (event) {
     const href = link.getAttribute('href') || '';
 
     // 1) Interne seksjoner: href starter med '#'
     if (href.startsWith('#')) {
-      event.preventDefault();
+        event.preventDefault();
 
       // Oppdater visningslogikk
-      const targetSection = document.querySelector(href);
-      currentSectionId = href.slice(1);
+        const targetSection = document.querySelector(href);
+        currentSectionId = href.slice(1);
 
-      sections.forEach(section => section.style.display = 'none');
-      if (targetSection) {
+        sections.forEach(section => section.style.display = 'none');
+        if (targetSection) {
         targetSection.style.display = 'block';
-      }
+        }
 
       // Progressbar
-      const minBar = document.getElementById('minBar');
-      if (minBar) {
+        const minBar = document.getElementById('minBar');
+        if (minBar) {
         if (currentSectionId === 'home' || currentSectionId === 'quiz') {
-          minBar.style.width = '0%';
+            minBar.style.width = '0%';
         } else {
-          myFunction();
+            myFunction();
         }
-      }
-      return;
+        }
+        return;
     }
-  });
+    });
 });
 
 
@@ -284,26 +284,60 @@ streakElement.style.display = 'none';
     
     showQuestion(currentQuestionIndex);
     
-    function toggleFullscreenImage(imageId) {
-        const image = document.getElementById(imageId);
-        if (image.classList.contains('show')) {
-            image.classList.remove('show');
-        } else {
-            image.classList.add('show');
+    // Fullscreen image logic
+    function showFullscreenImage(imgSrc, altText = '') {
+        // Remove any existing overlay
+        const oldOverlay = document.getElementById('fullscreenOverlay');
+        if (oldOverlay) oldOverlay.remove();
+
+        // Create overlay
+        const overlay = document.createElement('div');
+        overlay.id = 'fullscreenOverlay';
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100vw';
+        overlay.style.height = '100vh';
+        overlay.style.background = 'rgba(0,0,0,0.9)';
+        overlay.style.display = 'flex';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
+        overlay.style.zIndex = '9999';
+        overlay.style.cursor = 'pointer';
+
+        // Create image
+        const img = document.createElement('img');
+        img.src = imgSrc;
+        img.alt = altText;
+        img.style.maxWidth = '90vw';
+        img.style.maxHeight = '90vh';
+        img.style.boxShadow = '0 0 40px #000';
+        img.style.borderRadius = '16px';
+        overlay.appendChild(img);
+
+        // Close on click
+        overlay.addEventListener('click', () => {
+            overlay.remove();
+        });
+
+        // Close on Escape
+        function escListener(e) {
+            if (e.key === 'Escape') {
+                overlay.remove();
+                document.removeEventListener('keydown', escListener);
+            }
         }
+        document.addEventListener('keydown', escListener);
+
+        document.body.appendChild(overlay);
     }
-    
+
+    // Attach to all images inside .fullscreen-image
     const ramImages = document.querySelectorAll('.fullscreen-image img');
     ramImages.forEach(img => {
         img.addEventListener('click', function() {
-            toggleFullscreenImage(this.parentElement.id);
+            showFullscreenImage(this.src, this.alt);
         });
-    });
-    
-    document.addEventListener('keydown', function(event) {
-        if(event.key === 'Escape') {
-            toggleFullscreenImage('ramImageContainer');
-        }
     });
     
     // progressjons bar
@@ -366,10 +400,6 @@ function startConfetti() {
     // årstall i footer
     const yearEl = document.getElementById('year');
     if (yearEl) {
-      yearEl.textContent = new Date().getFullYear();
+        yearEl.textContent = new Date().getFullYear();
     }
-
-
-
-  
 });

@@ -10,6 +10,7 @@
   --color-text-muted: 170, 170, 185;
   --color-text-inverted: 7, 22, 39;
 
+
   --color-fill: 7, 22, 39;
   --muted: 40, 56, 72;
 
@@ -689,7 +690,7 @@ gif { padding: var(--space-l); }
 }
 
 /* ==========================================================================
-   Full-bredde linje
+    Full-bredde linje
    ========================================================================== */
 
 .full-width-line {
@@ -703,7 +704,7 @@ gif { padding: var(--space-l); }
 
 
 /* ==========================================================================
-   Footer
+    Footer
    ========================================================================== */
 
 .site-footer {
@@ -711,13 +712,15 @@ gif { padding: var(--space-l); }
   color: rgb(var(--color-text-base));
   border-top: var(--border-w-thin) solid rgba(var(--border), 0.5);
   box-shadow: var(--shadow-sm);
-  margin-top: var(--space-2xl);
+  margin-top: var(--space-xl);
+  min-height: 140px;
 }
 
 .site-footer .footer-inner {
   max-width: var(--width-content);
   margin-inline: auto;
-  padding: var(--space-xl) var(--space-l);
+  /* Increased vertical padding to make the footer taller. */
+  padding: var(--space-3xl) var(--space-l);
   display: grid;
   grid-template-columns: 1fr auto;
   gap: var(--space-l);
@@ -834,7 +837,7 @@ gif { padding: var(--space-l); }
 
 
 /* Sticky footer-støtte
-   Krever at body er flex-col og main bruker flex: 1 0 auto;
+    Krever at body er flex-col og main bruker flex: 1 0 auto;
    Denne gjør bare at footer ikke krymper. */
 .site-footer { flex-shrink: 0; }
 
