@@ -339,7 +339,6 @@ streakElement.style.display = 'none';
             showFullscreenImage(this.src, this.alt);
         });
     });
-    
     // progressjons bar
     window.onscroll = function() { myFunction() };
 

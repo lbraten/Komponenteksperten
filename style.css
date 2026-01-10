@@ -1,6 +1,6 @@
 
 /* ==========================================================================
-   Design tokens (base) og tema-scopes
+  Design tokens (base) og tema-scopes
    ========================================================================== */
 
 /* Default */
@@ -265,7 +265,7 @@ section {
 section:target { display: block; }
 
 /* ==========================================================================
-   Navigasjon
+  Navigasjon
    ========================================================================== */
 
 nav {
@@ -291,6 +291,7 @@ nav button#themeLink {
   color: rgb(var(--color-text-base));
   text-decoration: none;
   margin: var(--space-xs) var(--space-xs);
+  margin-top: var(--space-m);
   padding: var(--space-2xs) var(--space-ml);
   border-radius: var(--nav-radius);
   transition: background-color var(--duration-slow) var(--easing),
