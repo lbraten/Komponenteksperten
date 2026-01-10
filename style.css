@@ -1,4 +1,3 @@
-
 /* ==========================================================================
   Design tokens (base) og tema-scopes
    ========================================================================== */
@@ -68,7 +67,7 @@
 
   /* --- Shadow --- */
   --shadow-sm: 0 0 0px 0px rgba(var(--shadow), 0.2);
-  --shadow-md: 0 0 0px 0px rgba(var(--shadow), 0.25);
+  --shadow-md: 0 0 10px 0px rgba(var(--shadow), 0.25);
   --shadow-lg: 0 0 10px rgb(5, 14, 22);
 
   /* --- Bredder --- */
@@ -116,6 +115,7 @@ html[data-theme="int"] {
   --surface: var(--color-button-muted);
   --border: var(--muted);
   --shadow: 0, 0, 0;
+  --base-dimmed: 36, 50, 66;
 
   --accent-hover: color-mix(in srgb, rgb(var(--accent)) 80%, white 20%);
   --accent-2: 100, 247, 230;
@@ -141,6 +141,7 @@ html[data-theme="light"] {
   --surface: var(--color-button-muted);
   --border: var(--muted);
   --shadow: 0, 0, 0;
+  --base-dimmed: 211, 211, 223;
   --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.08);
 
   --accent-hover: color-mix(in srgb, rgb(var(--accent)) 70%, black 30%);
@@ -167,6 +168,7 @@ html[data-theme="hc"] {
   --surface: var(--color-button-muted);
   --border: var(--muted);
   --shadow: 0, 0, 0;
+  --base-dimmed: 255, 255, 0;
   --shadow-lg: none;
   --accent-hover: 13, 242, 215;
 
@@ -187,7 +189,7 @@ html[data-theme="hc"] {
 
 
 /* ==========================================================================
-   Reset / Basis
+  Reset / Basis
    ========================================================================== */
 
 *, *::before, *::after {
@@ -206,11 +208,11 @@ body {
 }
 
 /* ==========================================================================
-   Typografi
+  Typografi
    ========================================================================== */
 
 h1, h2, h3, p { font-family: var(--font-family-heading); }
-   
+
 h1 { font-size: var(--font-size-h1); }
 
 h2 {
@@ -242,7 +244,7 @@ p {
 }
 
 /* ==========================================================================
-   Seksjoner / visningslogikk
+  Seksjoner / visningslogikk
    ========================================================================== */
 
 section #components,
@@ -365,7 +367,7 @@ nav a .icon text {
 }
 
 /* ==========================================================================
-   Main / Quiz
+  Main / Quiz
    ========================================================================== */
 
 main { padding: var(--space-m); }
@@ -452,7 +454,7 @@ main { padding: var(--space-m); }
 }
 
 /* ==========================================================================
-   Score / Streak
+  Score / Streak
    ========================================================================== */
 
 #score {
@@ -492,7 +494,7 @@ main { padding: var(--space-m); }
 }
 
 /* ==========================================================================
-   Tema-knapper / popup
+  Tema-knapper / popup
    ========================================================================== */
 
 .theme-button {
@@ -521,7 +523,7 @@ main { padding: var(--space-m); }
   display: none;
   z-index: var(--z-popup);
   border-radius: var(--radius-s);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   padding: var(--space-xl);
   text-align: center;
 }
@@ -531,7 +533,8 @@ main { padding: var(--space-m); }
 
 .quiz-container {
   margin: var(--space-l);
-  margin-top: var(--space-l);
+  margin-top: var(--space-xs);
+  padding-bottom: var(--space-3xl);
 }
 
 .quiz-options .quiz-option {
@@ -541,7 +544,7 @@ main { padding: var(--space-m); }
 }
 
 /* ==========================================================================
-   Bilder / rammer
+  Bilder / rammer
    ========================================================================== */
 
 #ram-image {
@@ -568,7 +571,7 @@ main { padding: var(--space-m); }
 .fullscreen-image.show img { transform: scale(2); }
 
 /* ==========================================================================
-   Minimal nav / progresjon
+  Minimal nav / progresjon
    ========================================================================== */
 
 .minNav {
@@ -593,7 +596,7 @@ main { padding: var(--space-m); }
 }
 
 /* ==========================================================================
-   Ikoner
+  Ikoner
    ========================================================================== */
 
 .icon-home::before,
@@ -636,15 +639,16 @@ span.iconSSD img {
 
 
 /* ==========================================================================
-   Slideshow
+  Slideshow
    ========================================================================== */
 
 .lysbildefremvisning-container {
   position: relative;
   max-width: 1000px;
   margin: auto;
-  padding-top: var(--space-2xl);
   padding-bottom: 0;
+  padding-bottom: var(--space-2xl);
+  padding-top: var(--space-xl);
 }
 
 
@@ -654,7 +658,7 @@ span.iconSSD img {
   width: 100%;
   position: relative;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: var(--radius-m);
   box-shadow: var(--shadow-sm);
   border: 0px solid transparent;
 }
@@ -669,7 +673,7 @@ span.iconSSD img {
 }
 
 /* ==========================================================================
-   Animasjoner / småfiks
+  Animasjoner / småfiks
    ========================================================================== */
 
 #score.streak { animation: shake 0.5s infinite alternate; }
@@ -682,7 +686,7 @@ span.iconSSD img {
 gif { padding: var(--space-l); }
 
 /* ==========================================================================
-   Tilgjengelighet – tydelig fokusring
+  Tilgjengelighet – tydelig fokusring
    ========================================================================== */
 
 :where(a, button, [role="button"], .quiz-option):focus-visible {
@@ -702,7 +706,6 @@ gif { padding: var(--space-l); }
   margin-top: var(--space-l);
   margin-bottom: var(--space-l);
 }
-
 
 /* ==========================================================================
     Footer
@@ -836,6 +839,108 @@ gif { padding: var(--space-l); }
   object-fit: contain;
 }
 
+/* ==========================================================================*/
+/* Nøkkelfunksjoner / forsiden bokser */
+/* ==========================================================================*/
+
+.nokkelfunksjoner-container {
+  display: flex;
+  gap: var(--space-xl);
+  justify-content: center;
+  margin: var(--space-2xl) 0 var(--space-3xl) 0;
+  flex-wrap: wrap;
+}
+
+.nokkelfunksjon-boks {
+  background: rgb(var(--surface));
+  color: rgb(var(--color-text-base));
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-md);
+  border: var(--border-w-thin) solid rgb(var(--border));
+  padding: var(--space-xl) var(--space-l);
+  min-width: 220px;
+  max-width: 320px;
+  flex: 1 1 220px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color var(--duration-base) var(--easing),
+              color var(--duration-fast) var(--easing),
+              box-shadow var(--duration-fast) var(--easing),
+              transform var(--duration-fast) var(--easing);
+  margin-bottom: var(--space-l);
+}
+
+.nokkelfunksjon-boks:hover,
+.nokkelfunksjon-boks:focus-visible {
+  background: rgb(var(--accent));
+  color: rgb(var(--accent-contrast));
+  box-shadow: 0 4px 24px rgba(var(--accent), 0.15);
+  transform: translateY(-4px) scale(1.03);
+  outline: none;
+}
+
+.nokkelfunksjon-ikon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: var(--space-m);
+}
+
+.nokkelfunksjon-boks h3 {
+  font-size: var(--font-size-h3);
+  margin-bottom: var(--space-xs);
+  color: inherit;
+}
+
+.nokkelfunksjon-boks p {
+  font-size: 1rem;
+  color: inherit;
+}
+
+/* ==========================================================================*/
+/* Scrollbar styling (tema-tilpasset) */
+/* ==========================================================================*/
+
+/* For moderne nettlesere */
+::-webkit-scrollbar {
+  width: 12px;
+  background: rgb(var(--surface));
+  border-radius: var(--radius-l);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--accent));
+  border-radius: var(--radius-l);
+  border: 2px solid rgb(var(--surface));
+  min-height: 40px;
+  transition: background 0.3s var(--easing);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--accent-2));
+}
+
+::-webkit-scrollbar-corner {
+  background: rgb(var(--surface));
+}
+
+/* For Firefox */
+html {
+  scrollbar-width: thick;
+  scrollbar-color: rgb(var(--base-dimmed)) rgb(var(--surface));
+}
+
+@media (max-width: 900px) {
+  .nokkelfunksjoner-container {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-l);
+  }
+  .nokkelfunksjon-boks {
+    min-width: 0;
+    width: 100%;
+    max-width: 400px;
+  }
+}
 
 /* Sticky footer-støtte
     Krever at body er flex-col og main bruker flex: 1 0 auto;
