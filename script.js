@@ -7,6 +7,22 @@ document.addEventListener('DOMContentLoaded', function() {
         initialSection.style.display = 'block';
     }
 
+        // Blur overlay for theme popup
+        const overlay = document.createElement('div');
+        overlay.id = 'themeBlurOverlay';
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100vw';
+        overlay.style.height = '100vh';
+        overlay.style.background = 'rgba(0,0,0,0.18)';
+        overlay.style.zIndex = '999';
+        overlay.style.backdropFilter = 'blur(6px)';
+        overlay.style.transition = 'opacity 0.3s ease';
+        overlay.style.opacity = '0';
+        overlay.style.pointerEvents = 'none';
+        document.body.appendChild(overlay);
+
     // bytte seksjon ved klikk i menyen
 
 const menuLinks = document.querySelectorAll('nav a');
@@ -62,6 +78,10 @@ menuLinks.forEach(link => {
         closeBtn.addEventListener('click', function() {
             themePopup.style.display = 'none';
             document.removeEventListener('mousedown', closeThemePopupOnOutsideClick);
+                // Skjul overlay og fjern blur
+                overlay.style.opacity = '0';
+                overlay.style.pointerEvents = 'none';
+                document.body.classList.remove('theme-blur-active');
         });
 
     themeLink.addEventListener('click', () => {
@@ -70,12 +90,15 @@ menuLinks.forEach(link => {
     setTimeout(() => {
         document.addEventListener('mousedown', closeThemePopupOnOutsideClick);
     }, 0);
+        // Vis overlay og blur alt annet
+        overlay.style.opacity = '1';
+        overlay.style.pointerEvents = 'auto';
+        document.body.classList.add('theme-blur-active');
     });
 
-    // mappe til våre data-theme verdier
-    const THEME_INT = 'int';       // mørkt
-    const THEME_LIGHT = 'light';   // lyst
-    const THEME_HC = 'hc';         // høykontrast
+    const THEME_INT = 'int';
+    const THEME_LIGHT = 'light';
+    const THEME_HC = 'hc';
 
     darkThemeBtn.addEventListener('click', () => {
     setTheme(THEME_INT);
@@ -95,6 +118,10 @@ menuLinks.forEach(link => {
     // lukk popup
     themePopup.style.display = 'none';
     document.removeEventListener('mousedown', closeThemePopupOnOutsideClick);
+        // Skjul overlay og fjern blur
+        overlay.style.opacity = '0';
+        overlay.style.pointerEvents = 'none';
+        document.body.classList.remove('theme-blur-active');
     }
 
     // ved last: bruk lagret tema hvis finnes, ellers behold det som står i HTML
@@ -108,6 +135,10 @@ menuLinks.forEach(link => {
             if (themePopup.contains(e.target)) return;
             themePopup.style.display = 'none';
             document.removeEventListener('mousedown', closeThemePopupOnOutsideClick);
+                // Skjul overlay og fjern blur
+                overlay.style.opacity = '0';
+                overlay.style.pointerEvents = 'none';
+                document.body.classList.remove('theme-blur-active');
         }
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {

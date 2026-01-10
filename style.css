@@ -2,6 +2,20 @@
 /* Design tokens og tema-scopes */
 /* ==========================================================================*/
 
+/* Blur alt annet enn popup når tema-popup er aktiv */
+body.theme-blur-active > *:not(#themePopup):not(#themeBlurOverlay) {
+  filter: blur(5px) grayscale(0.1) brightness(0.95);
+  transition: filter 0.3s ease;
+  pointer-events: none;
+  user-select: none;
+}
+body.theme-blur-active #themePopup,
+body.theme-blur-active #themeBlurOverlay {
+  filter: none !important;
+  pointer-events: auto;
+  user-select: auto;
+}
+
 :root {
   /* --- Farger (RGB) --- */
   --color-text-base: 243, 243, 246;
@@ -145,7 +159,7 @@ html[data-theme="hc"] {
   --muted: 0, 0, 0;
   --color: 255, 0, 0;
   --color-button-accent: 255, 0, 0;
-  --color-button-accent-hover: 255, 255, 0;
+  --color-button-accent-hover: 0, 255, 0;
   --color-button-muted: 255, 255, 255;
   --accent: var(--color);
   --accent-contrast: 0, 0, 0;
