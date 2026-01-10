@@ -52,8 +52,24 @@ menuLinks.forEach(link => {
     const lightThemeBtn = document.getElementById('lightThemeBtn');
     const highContrastThemeBtn = document.getElementById('highContrastThemeBtn');
 
+        // Legg til rødt kryss for å lukke popup
+        let closeBtn = document.createElement('span');
+        closeBtn.innerHTML = '&times;';
+        closeBtn.className = 'close-menu-button';
+        closeBtn.setAttribute('aria-label', 'Lukk');
+        themePopup.appendChild(closeBtn);
+
+        closeBtn.addEventListener('click', function() {
+            themePopup.style.display = 'none';
+            document.removeEventListener('mousedown', closeThemePopupOnOutsideClick);
+        });
+
     themeLink.addEventListener('click', () => {
     themePopup.style.display = 'block';
+    // Aktiver "klikk utenfor"-logikk
+    setTimeout(() => {
+        document.addEventListener('mousedown', closeThemePopupOnOutsideClick);
+    }, 0);
     });
 
     // mappe til våre data-theme verdier
@@ -78,9 +94,21 @@ menuLinks.forEach(link => {
     localStorage.setItem('theme', themeKey);
     // lukk popup
     themePopup.style.display = 'none';
+    document.removeEventListener('mousedown', closeThemePopupOnOutsideClick);
     }
 
     // ved last: bruk lagret tema hvis finnes, ellers behold det som står i HTML
+        // Funksjon for å lukke popup hvis man klikker utenfor theme-popup
+        function closeThemePopupOnOutsideClick(e) {
+            // Sjekk om klikket er inni themePopup
+            if (themePopup.style.display !== 'block') return;
+            // Hvis klikket er på en av temaknappene eller krysset, ikke lukk
+            if (e.target === darkThemeBtn || e.target === lightThemeBtn || e.target === highContrastThemeBtn || e.target === closeBtn) return;
+            // Hvis klikket er inni themePopup, ikke lukk
+            if (themePopup.contains(e.target)) return;
+            themePopup.style.display = 'none';
+            document.removeEventListener('mousedown', closeThemePopupOnOutsideClick);
+        }
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
     document.documentElement.setAttribute('data-theme', savedTheme);

@@ -1,3 +1,37 @@
+
+
+:root[data-theme="int"] .close-menu-button,
+html[data-theme="int"] .close-menu-button {
+  color: rgb(13, 242, 215);
+}
+
+:root[data-theme="int"] .close-menu-button:hover,
+html[data-theme="int"] .close-menu-button:hover {
+  background: rgba(13, 242, 215, 0.12);
+  color: rgb(255, 0, 0);
+}
+
+:root[data-theme="light"] .close-menu-button,
+html[data-theme="light"] .close-menu-button {
+  color: rgb(0, 115, 117);
+}
+
+:root[data-theme="light"] .close-menu-button:hover,
+html[data-theme="light"] .close-menu-button:hover {
+  background: rgba(0, 115, 117, 0.12);
+  color: rgb(255, 0, 0);
+}
+
+:root[data-theme="hc"] .close-menu-button,
+html[data-theme="hc"] .close-menu-button {
+  color: rgb(255, 0, 0);
+}
+
+:root[data-theme="hc"] .close-menu-button:hover,
+html[data-theme="hc"] .close-menu-button:hover {
+  background: rgba(255, 255, 0, 0.12);
+  color: rgb(0, 0, 255);
+}
 /* ==========================================================================
   Design tokens (base) og tema-scopes
    ========================================================================== */
@@ -143,6 +177,7 @@ html[data-theme="light"] {
   --shadow: 0, 0, 0;
   --base-dimmed: 211, 211, 223;
   --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.18);
 
   --accent-hover: color-mix(in srgb, rgb(var(--accent)) 70%, black 30%);
   --accent-2: 0, 85, 87; /* farge til hover */
@@ -171,6 +206,7 @@ html[data-theme="hc"] {
   --base-dimmed: 255, 255, 0;
   --shadow-lg: none;
   --accent-hover: 13, 242, 215;
+  --shadow-md: none;
 
   --accent-2: 13, 242, 215;
 }
@@ -285,7 +321,7 @@ nav {
   z-index: var(--z-nav);
   width: 100%;
   margin-bottom: var(--space-sm);
-  border-bottom: var(--border-w-thin) solid rgb(var(--border));
+  border-bottom: var(--border-w-thin) solid rgb(var(--base-dimmed));
 }
 
 nav a,
@@ -519,13 +555,14 @@ main { padding: var(--space-m); }
   transform: translate(-50%, -50%);
   background-color: rgb(var(--surface));
   color: rgb(var(--color-text-base));
-  border: var(--border-w-thin) solid rgb(var(--border));
+  border: var(--border-w-thin) solid rgb(var(--base-dimmed));
   display: none;
   z-index: var(--z-popup);
-  border-radius: var(--radius-s);
+  border-radius: var(--radius-m);
   box-shadow: var(--shadow-sm);
   padding: var(--space-xl);
   text-align: center;
+  box-shadow: var(--shadow-md);
 }
 
 .show-theme-dialog .theme-popup { display: block; }
@@ -702,7 +739,7 @@ gif { padding: var(--space-l); }
   width: calc(100% + 2 * var(--section-padding));
   margin-left: calc(-1 * var(--section-padding));
   height: 1px;
-  background-color: rgba(var(--border), 0.4);
+  background-color: rgba(var(--base-dimmed));
   margin-top: var(--space-l);
   margin-bottom: var(--space-l);
 }
@@ -714,7 +751,7 @@ gif { padding: var(--space-l); }
 .site-footer {
   background-color: rgb(var(--surface));
   color: rgb(var(--color-text-base));
-  border-top: var(--border-w-thin) solid rgba(var(--border), 0.5);
+  border-top: var(--border-w-thin) solid rgba(var(--base-dimmed));
   box-shadow: var(--shadow-sm);
   margin-top: var(--space-xl);
   min-height: 140px;
@@ -894,6 +931,59 @@ gif { padding: var(--space-l); }
 .nokkelfunksjon-boks p {
   font-size: 1rem;
   color: inherit;
+}
+
+:root {
+  --close-menu-color: 255, 0, 0;
+  --close-menu-bg: transparent;
+  --close-menu-hover-color: 180, 0, 0;
+  --close-menu-hover-bg: 255, 0, 0, 0.08;
+}
+
+:root[data-theme="int"],
+html[data-theme="int"] {
+  --close-menu-color: var(--color);
+  --close-menu-bg: transparent;
+  --close-menu-hover-color: var(--color-button-accent-hover);
+  --close-menu-hover-bg: 13, 242, 215, 0.08;
+}
+
+:root[data-theme="light"],
+html[data-theme="light"] {
+  --close-menu-color: var(--color);
+  --close-menu-bg: transparent;
+  --close-menu-hover-color: 255, 0, 0;
+  --close-menu-hover-bg: 255, 0, 0, 0.08;
+}
+
+:root[data-theme="hc"],
+html[data-theme="hc"] {
+  --close-menu-color: var(--color);
+  --close-menu-bg: transparent;
+  --close-menu-hover-color: 255, 255, 0;
+  --close-menu-hover-bg: 255, 255, 0, 0.12;
+}
+
+.close-menu-button {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgb(var(--close-menu-color));
+  background: var(--close-menu-bg);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  transition: color 0.2s var(--easing), background 0.2s var(--easing);
+  padding: 2px 8px;
+  line-height: 1;
+}
+
+.close-menu-button:hover {
+  background: rgba(var(--close-menu-hover-bg));
+  color: rgb(var(--close-menu-hover-color));
 }
 
 /* ==========================================================================*/
