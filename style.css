@@ -828,6 +828,7 @@ main { padding: var(--space-m); }
 :root[data-theme="hc"] #ram-image {
   border: none;
   outline: 4px solid rgb(var(--border));
+  border-radius: var(--radius-none);
 }
 
 .fullscreen-image img {
@@ -842,6 +843,13 @@ main { padding: var(--space-m); }
 }
 
 .fullscreen-image.show img { transform: scale(2); }
+
+:root[data-theme="hc"] .fullscreen-image img {
+  border: none;
+  outline: 4px solid rgb(var(--border));
+  border-radius: var(--radius-none);
+  box-shadow: none;
+}
 
 /* ==========================================================================
   Minimal nav / progresjon
@@ -934,6 +942,12 @@ span.iconSSD img {
   border-radius: var(--radius-m);
   box-shadow: var(--shadow-sm);
   border: 0px solid transparent;
+}
+
+:root[data-theme="hc"] .mineBilder {
+  border: none;
+  outline: 4px solid rgb(var(--border));
+  border-radius: var(--radius-none);
 }
 
 .mineBilder img {
