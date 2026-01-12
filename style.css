@@ -62,6 +62,7 @@ body.theme-blur-active #themeBlurOverlay {
   --border-w-thin: 1px;
   --border-w: 2px;
   --border-w-bold: 3px;
+  --radius-none: 0px;
   --radius-s: 7px;
   --radius-m: 12px;
   --radius-l: 15px;
@@ -381,10 +382,12 @@ html[data-theme="hc"] {
   --surface: var(--color-button-muted);
   --border: var(--muted);
   --shadow: 0, 0, 0;
-  --base-dimmed: 255, 255, 0;
+  --base-dimmed: 0, 0, 0;
   --shadow-lg: none;
   --accent-hover: 13, 242, 215;
   --shadow-md: none;
+  --quiz-accent: 255, 255, 0;
+  --quiz-accent-hover: 255, 255, 241;
 
   --accent-2: 13, 242, 215;
 }
@@ -478,6 +481,12 @@ section {
   box-shadow: var(--shadow-lg);
 }
 
+:root[data-theme="hc"] section {
+  border: none;
+  outline: 5px solid rgb(var(--border));
+  border-radius: var(--radius-none);
+}
+
 section:target { display: block; }
 
 /* ==========================================================================
@@ -526,6 +535,13 @@ nav a:hover,
 nav button#themeLink:hover {
   background-color: rgba(var(--accent), 0.08);
   color: rgb(var(--accent));
+}
+
+:root[data-theme="hc"] nav a:hover,
+:root[data-theme="hc"] nav button#themeLink:hover {
+  outline: var(--border-w-bold) solid rgb(var(--accent));
+  border-radius: var(--radius-none);
+  background-color: transparent;
 }
 
 nav a:focus-visible,
@@ -643,6 +659,21 @@ main { padding: var(--space-m); }
   border-color: rgb(var(--accent));
 }
 
+/* Høykontrast borders uten ekstra plass */
+:root[data-theme="hc"] #options .quiz-option,
+:root[data-theme="hc"] #retryBtn {
+  background-color: rgb(var(--quiz-accent));
+  border: none;
+  outline: 5px solid rgb(var(--border));
+  transition: none;
+}
+
+/* Lysere hover-farge for høykontrast */
+:root[data-theme="hc"] #options .quiz-option:hover,
+:root[data-theme="hc"] #retryBtn:hover {
+  background-color: rgb(var(--quiz-accent-hover));
+}
+
 #nextBtn {
   width: var(--width-nextbtn);
   height: var(--height-nextbtn);
@@ -685,6 +716,12 @@ main { padding: var(--space-m); }
   border: var(--border-w-thin) solid rgba(var(--border), 0.4);
 }
 
+/* Høykontrast borders uten ekstra plass */
+:root[data-theme="hc"] #score {
+  border: none;
+  outline: 3px solid rgba(var(--border));
+}
+
 #streak {
   position: fixed;
   top: 13vh;
@@ -707,6 +744,14 @@ main { padding: var(--space-m); }
   color: #ffffff !important;
 }
 
+/* Høykontrast borders uten ekstra plass */
+:root[data-theme="hc"] .correct,
+:root[data-theme="hc"] .incorrect {
+  border: none;
+  outline: 3px solid currentColor;
+}
+
+
 /* ==========================================================================
   Tema-knapper / popup
    ========================================================================== */
@@ -720,6 +765,7 @@ main { padding: var(--space-m); }
   cursor: pointer;
   border: var(--border-w) solid transparent;
 }
+
 
 .theme-button:hover {
   background-color: rgb(var(--accent-2));
@@ -741,6 +787,12 @@ main { padding: var(--space-m); }
   padding: var(--space-l);
   text-align: center;
   box-shadow: var(--shadow-md);
+}
+
+:root[data-theme="hc"]  .theme-popup {
+  border: none;
+  outline: 4px solid rgb(var(--border));
+  border-radius: var(--radius-none);
 }
 
 .show-theme-dialog .theme-popup { display: block; }
@@ -770,6 +822,12 @@ main { padding: var(--space-m); }
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-sm);
   border: var(--border-w) solid rgb(var(--border));
+}
+
+/* Høykontrast borders uten ekstra plass */
+:root[data-theme="hc"] #ram-image {
+  border: none;
+  outline: 4px solid rgb(var(--border));
 }
 
 .fullscreen-image img {
@@ -922,6 +980,10 @@ gif { padding: var(--space-l); }
   margin-bottom: var(--space-l);
 }
 
+:root[data-theme="hc"] .full-width-line {
+  height: 5px;
+}
+
 /* ==========================================================================
     Footer
    ========================================================================== */
@@ -972,6 +1034,12 @@ gif { padding: var(--space-l); }
   display: inline-flex;
   align-items: center;
   line-height: var(--line-button);
+}
+
+/* Høykontrast borders uten ekstra plass */
+:root[data-theme="hc"] .site-footer .footer-links a {
+  border: none;
+  outline: 3px solid transparent;
 }
 
 .site-footer .footer-links a:hover {
@@ -1092,6 +1160,12 @@ gif { padding: var(--space-l); }
   box-shadow: 0 4px 24px rgba(var(--accent), 0.15);
   transform: translateY(-4px) scale(1.03);
   outline: none;
+}
+
+:root[data-theme="hc"] .nokkelfunksjon-boks {
+  outline: 4px solid rgb(var(--border));
+  border-radius: var(--radius-none);
+  transition: none;
 }
 
 .nokkelfunksjon-ikon {
