@@ -430,7 +430,9 @@ body {
 
 h1, h2, h3, p { font-family: var(--font-family-heading); }
 
-h1 { font-size: var(--font-size-h1); }
+h1 { font-size: var(--font-size-h2);
+  margin-bottom: var(--space-l);
+}
 
 h2 {
   font-size: var(--font-size-h2);
@@ -511,8 +513,7 @@ nav {
   border-bottom: var(--border-w-thin) solid rgb(var(--base-dimmed));
 }
 
-nav a,
-nav button#themeLink {
+nav a {
   color: rgb(var(--color-text-base));
   text-decoration: none;
   margin: var(--space-xs) var(--space-xs);
@@ -531,13 +532,40 @@ nav button#themeLink {
   align-items: center;
 }
 
-nav a:hover,
-nav button#themeLink:hover {
+nav a:hover {
   background-color: rgba(var(--accent), 0.08);
   color: rgb(var(--accent));
 }
 
-:root[data-theme="hc"] nav a:hover,
+nav button#themeLink:hover {
+  color: rgb(var(--accent));
+}
+
+nav button#themeLink {
+  color: rgb(var(--color-text-base));
+  text-decoration: none;
+  margin: var(--space-xs) var(--space-xs);
+  margin-top: var(--space-m);
+  padding: var(--space-2xs) var(--space-s);
+  border-radius: var(--nav-radius);
+  transition: background-color var(--duration-slow) var(--easing),
+              transform var(--duration-fast) var(--easing),
+              border-color var(--duration-fast) var(--easing);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  line-height: var(--line-button);
+  display: inline-flex;
+  align-items: center;
+}
+
+:root[data-theme="hc"] nav a:hover {
+  outline: var(--border-w-bold) solid rgb(var(--accent));
+  border-radius: var(--radius-none);
+  background-color: transparent;
+}
+
 :root[data-theme="hc"] nav button#themeLink:hover {
   outline: var(--border-w-bold) solid rgb(var(--accent));
   border-radius: var(--radius-none);
@@ -595,6 +623,27 @@ nav a .icon text {
 .site-footer .footer-links .icon text {
   pointer-events: none;
 }
+
+
+/* Separatoren når den står i høyre-gruppen */
+
+.vertical-line {
+  position: absolute;
+  right: var(--space-l);
+  top: 90%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 80px;
+  background-color: rgba(var(--base-dimmed));
+  margin: 0;            /* margin styrer ikke posisjon ved absolute */
+  display: block;
+}
+
+
+:root[data-theme="hc"] .nav-right .vertical-line {
+  width: 5px;
+}
+
 
 /* ==========================================================================
   Main / Quiz
@@ -930,6 +979,7 @@ span.iconSSD img {
   padding-bottom: 0;
   padding-bottom: var(--space-2xl);
   padding-top: var(--space-xl);
+  aspect-ratio: 16 / 9;
 }
 
 
@@ -937,7 +987,9 @@ span.iconSSD img {
 .mineBilder {
   aspect-ratio: 16 / 9;
   width: 100%;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   overflow: hidden;
   border-radius: var(--radius-m);
   box-shadow: var(--shadow-sm);
@@ -957,6 +1009,11 @@ span.iconSSD img {
   object-position: center;
   display: block;
   border-radius: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 1s ease;
 }
 
 /* ==========================================================================
@@ -1125,6 +1182,16 @@ gif { padding: var(--space-l); }
   top: 50%;
   transform: translateY(-50%);
   height: auto;
+  z-index: calc(var(--z-nav) + 1);
+}
+
+.nav-right {
+  display: inline-flex;
+  align-items: center;
+  position: absolute;
+  right: var(--space-3xl);
+  top: 39%;
+  transform: translateY(-50%);
   z-index: calc(var(--z-nav) + 1);
 }
 

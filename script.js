@@ -410,6 +410,23 @@ streakElement.style.display = 'none';
         document.getElementById("minBar").style.width = scrolled + "%";
     }
 
+    // preload bilder
+    function preloadImages() {
+        const imageSources = [
+            'bilder/gpufront.jpg',
+            'bilder/computer.jpg',
+            'bilder/pcb.png',
+            'bilder/computer2.jpg',
+            'bilder/cpufront.jpg',
+            'bilder/fiber.png'
+        ];
+        imageSources.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+    }
+    preloadImages();
+
     // dritkul slideshow
     let slideIndex = 0;
     visBilder();
@@ -418,11 +435,11 @@ streakElement.style.display = 'none';
         let bilder = document.getElementsByClassName("mineBilder");
         let fremdriftsBar = document.querySelector('.fremdrifts-bar');
         for (let i = 0; i < bilder.length; i++) {
-            bilder[i].style.display = "none";
+            bilder[i].querySelector('img').style.opacity = "0";
         }
         slideIndex++;
         if (slideIndex > bilder.length) { slideIndex = 1 }
-        bilder[slideIndex - 1].style.display = "block";
+        bilder[slideIndex - 1].querySelector('img').style.opacity = "1";
         fremdriftsBar.style.width = '0';
         void fremdriftsBar.offsetWidth;
         fremdriftsBar.style.width = '100%';
