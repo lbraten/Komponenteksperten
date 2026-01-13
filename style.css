@@ -496,7 +496,7 @@ section:target { display: block; }
    ========================================================================== */
 
 nav {
-  --nav-padding-top: var(--space-s);
+  --nav-padding-top: var(--space-xs);
   --nav-radius: var(--radius-s);
 
   background-color: rgb(var(--surface));
