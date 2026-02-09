@@ -96,12 +96,11 @@ menuLinks.forEach(link => {
         document.body.classList.add('theme-blur-active');
     });
 
-    const THEME_INT = 'int';
     const THEME_LIGHT = 'light';
     const THEME_HC = 'hc';
 
     darkThemeBtn.addEventListener('click', () => {
-    setTheme(THEME_INT);
+    setTheme(null);
     });
     lightThemeBtn.addEventListener('click', () => {
     setTheme(THEME_LIGHT);
@@ -112,9 +111,14 @@ menuLinks.forEach(link => {
 
     function setTheme(themeKey) {
     // sett tema på <html> (documentElement)
-    document.documentElement.setAttribute('data-theme', themeKey);
-    // lagre
-    localStorage.setItem('theme', themeKey);
+    if (themeKey) {
+        document.documentElement.setAttribute('data-theme', themeKey);
+        // lagre
+        localStorage.setItem('theme', themeKey);
+    } else {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.removeItem('theme');
+    }
     // lukk popup
     themePopup.style.display = 'none';
     document.removeEventListener('mousedown', closeThemePopupOnOutsideClick);
@@ -141,8 +145,11 @@ menuLinks.forEach(link => {
                 document.body.classList.remove('theme-blur-active');
         }
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
+    if (savedTheme && savedTheme !== 'int') {
     document.documentElement.setAttribute('data-theme', savedTheme);
+    } else if (savedTheme === 'int') {
+    localStorage.removeItem('theme');
+    document.documentElement.removeAttribute('data-theme');
     }
 
     // quiz kode

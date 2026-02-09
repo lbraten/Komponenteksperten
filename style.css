@@ -18,19 +18,48 @@ body.theme-blur-active #themeBlurOverlay {
 
 :root {
   /* --- Farger (RGB) --- */
-  --color-text-base: 243, 243, 246;
-  --color-text-muted: 170, 170, 185;
-  --color-text-inverted: 7, 22, 39;
-  --color-fill: 7, 22, 39;
-  --muted: 40, 56, 72;
-  --color: 13, 242, 215; /* accent */
-  --color-button-accent: 13, 242, 215;
-  --color-button-accent-hover: 255, 0, 0; /* placeholder */
-  --color-button-muted: 15, 33, 51;
+  --color-text-base: 241, 243, 248;
+  --color-text-muted: 167, 174, 191;
+  --color-text-inverted: 10, 14, 22;
+  --color-fill: 10, 16, 30;
+  --muted: 96, 88, 122;
+  --color: 186, 145, 255; /* accent */
+  --color-humidity: 88, 196, 255;
+  --color-button-accent: 186, 145, 255;
+  --color-button-accent-hover: 203, 171, 255;
+  --color-button-muted: 22, 30, 48;
+  --color-bg-elevated: 18, 24, 40;
+  --color-bg-input: 14, 20, 36;
+  --color-border: 42, 50, 70;
+  --color-success: 88, 214, 141;
+  --color-ring: 186, 145, 255;
+  --color-ring-muted: 120, 131, 160;
+  --bg-gradient:
+    radial-gradient(70% 70% at 80% 40%,
+      rgba(103, 64, 150, 0.22) 0%,
+      rgba(103, 64, 150, 0.12) 45%,
+      rgba(103, 64, 150, 0.00) 78%)
+    ,
+    radial-gradient(65% 65% at 20% 0%,
+      rgba(30, 78, 140, 0.20) 0%,
+      rgba(30, 78, 140, 0.08) 25%,
+      rgba(30, 78, 140, 0.00) 40%)
+    ,
+    radial-gradient(80% 70% at 10% 55%,
+      rgba(0, 0, 0, 0.4) 0%,
+      rgba(0, 0, 0, 0.18) 60%,
+      rgba(31, 46, 74, 0.00) 72%)
+    ,
+    radial-gradient(60% 60% at 20% 100%,
+      rgba(0, 0, 0, 0.4) 0%,
+      rgba(0, 0, 0, 0.18) 60%,
+      rgba(31, 46, 74, 0.00) 72%)
+    ,
+    rgb(var(--color-fill));
   --accent: var(--color);
   --accent-contrast: var(--color-text-inverted);
-  --surface: var(--color-button-muted);
-  --border: var(--muted);
+  --surface: var(--color-bg-elevated);
+  --border: var(--color-border);
   --shadow: 0, 0, 0;
   --accent-hover: color-mix(in srgb, rgb(var(--accent)) 80%, white 20%);
   --accent-2: 161, 85, 185;
@@ -218,24 +247,50 @@ html[data-theme="hc"] {
 /* Default */
 :root {
   /* --- Farger (RGB) --- */
-  --color-text-base: 243, 243, 246;
-  --color-text-muted: 170, 170, 185;
-  --color-text-inverted: 7, 22, 39;
-
-
-  --color-fill: 7, 22, 39;
-  --muted: 40, 56, 72;
-
-  --color: 13, 242, 215; /* accent */
-  --color-button-accent: 13, 242, 215;
-  --color-button-accent-hover: 255, 0, 0; /* placeholder */
-  --color-button-muted: 15, 33, 51;
+  --color-text-base: 241, 243, 248;
+  --color-text-muted: 167, 174, 191;
+  --color-text-inverted: 10, 14, 22;
+  --color-fill: 10, 16, 30;
+  --muted: 96, 88, 122;
+  --color: 186, 145, 255; /* accent */
+  --color-humidity: 88, 196, 255;
+  --color-button-accent: 186, 145, 255;
+  --color-button-accent-hover: 203, 171, 255;
+  --color-button-muted: 22, 30, 48;
+  --color-bg-elevated: 18, 24, 40;
+  --color-bg-input: 14, 20, 36;
+  --color-border: 42, 50, 70;
+  --color-success: 88, 214, 141;
+  --color-ring: 186, 145, 255;
+  --color-ring-muted: 120, 131, 160;
+  --bg-gradient:
+    radial-gradient(70% 70% at 80% 40%,
+      rgba(103, 64, 150, 0.22) 0%,
+      rgba(103, 64, 150, 0.12) 45%,
+      rgba(103, 64, 150, 0.00) 78%)
+    ,
+    radial-gradient(65% 65% at 20% 0%,
+      rgba(30, 78, 140, 0.20) 0%,
+      rgba(30, 78, 140, 0.08) 25%,
+      rgba(30, 78, 140, 0.00) 40%)
+    ,
+    radial-gradient(80% 70% at 10% 55%,
+      rgba(0, 0, 0, 0.4) 0%,
+      rgba(0, 0, 0, 0.18) 60%,
+      rgba(31, 46, 74, 0.00) 72%)
+    ,
+    radial-gradient(60% 60% at 20% 100%,
+      rgba(0, 0, 0, 0.4) 0%,
+      rgba(0, 0, 0, 0.18) 60%,
+      rgba(31, 46, 74, 0.00) 72%)
+    ,
+    rgb(var(--color-fill));
 
   /* --- Semantiske farger (avledet) --- */
   --accent: var(--color);
   --accent-contrast: var(--color-text-inverted);
-  --surface: var(--color-button-muted);
-  --border: var(--muted);
+  --surface: var(--color-bg-elevated);
+  --border: var(--color-border);
   --shadow: 0, 0, 0;
 
   --accent-hover: color-mix(in srgb, rgb(var(--accent)) 80%, white 20%);
